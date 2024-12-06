@@ -23,6 +23,45 @@ Add your timetable using `<td>` tag.
 Execute the program using runserver command.
 
 ## PROGRAM
+## urls.py(server1)  
+from django.urls import path  
+
+from.import views  
+
+urlpatterns=[  
+    path('',views.home,name='home')  
+]  
+## views.py(server1)  
+~~~
+from django.shortcuts import render    
+from django.http import HttpResponse  
+#Create your views here.  
+
+def home(request):  
+    return render(request, 'home.html') 
+content="""
+    """
+ class Myserver(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print("Get request received...")
+        self.send_response(200)
+        self.send_header("content-type","text/html")
+        self.end_headers()
+        self.wfile.write(content.encode())
+print("This is my webserver")
+server_address =('',8000)
+Httpd = HTTPServer(server_address,Myserver)
+Httpd.serve_forever()
+~~~   
+## urls.py(server)
+from django.contrib import admin  
+from django.urls import path,include  
+
+urlpatterns = [  
+    path('', include('server1.urls')),  
+    path('admin/', admin.site.urls),  
+]  
+## creating new folder templates in that new html file 'home'  
 
 # CODE
 ~~~
@@ -150,7 +189,13 @@ Execute the program using runserver command.
 
 
 ## OUTPUT
+
+![Screenshot 2024-12-06 101048](https://github.com/user-attachments/assets/bdb4e5f0-b3c2-4541-ba4e-60547b9df370)
+
+![Screenshot 2024-12-06 101158](https://github.com/user-attachments/assets/f5fb5a0a-3872-4bdc-8ab7-9f73d539f755)
+
 ![Screenshot 2024-11-26 233805](https://github.com/user-attachments/assets/45226ee7-db3d-4e58-bfe1-be01121211dd)
+
 
 ## RESULT
 The program for creating slot timetable using basic HTML tags is executed successfully.
